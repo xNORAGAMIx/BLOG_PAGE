@@ -9,6 +9,24 @@ function BlogPostCard() {
 
   const navigate = useNavigate();
 
+  const extractSubstringFromPTag = (input) => {
+    let pTagIndex = input.indexOf('<p>');
+    let cTagIndex = input.indexOf('<code>');
+
+    if (pTagIndex !== -1) {
+        let substringStartIndex = pTagIndex + 3;
+        let extractedSubstring = input.substring(substringStartIndex, substringStartIndex + 200);
+        return extractedSubstring;
+    } else {
+        let substringStartIndex = cTagIndex + 6;
+        let extractedSubstring = input.substring(substringStartIndex, substringStartIndex + 200);
+        return extractedSubstring;
+    }
+  }
+
+  
+
+
   return (
     <div>
       <section id='sec' className="text-gray-600 body-font">
@@ -23,6 +41,8 @@ function BlogPostCard() {
                 {getAllBlog.map((item, index) => {
                   const { thumbnail, id, date } = item
                   console.log(item)
+                  const content = extractSubstringFromPTag(item.blogs.content);
+                  console.log(content);
                   return (
                     <div className="p-4 md:w-1/3" key={index}>
                       <div
@@ -71,7 +91,7 @@ function BlogPostCard() {
                               ? 'rgb(226, 232, 240)'
                               : ' rgb(30, 41, 59)'
                           }}>
-                            Click to read more!
+                            {content}
                           </p>
                         </div>
                       </div>
