@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import myContext from "../../context/data/myContext";
 import SearchDialog from "../searchDialog/SearchDialog";
 import ShareDialogBox from "../shareDialogBox/ShareDialogBox";
+import imgLogo from '../../assets/logo.png';
 
 export default function Nav() {
     const [openNav, setOpenNav] = React.useState(false);
@@ -71,7 +72,7 @@ export default function Nav() {
             {/* Navbar  */}
             <Navbar
                 className="sticky inset-0 z-20 h-max max-w-full border-none rounded-none py-2 px-4 lg:px-8 lg:py-2"
-                style={{ background: mode === 'dark' ? 'rgb(30, 41, 59)' : '#30336b' }}>
+                style={{ background: mode === 'dark' ? 'rgb(30, 41, 59)' : '#570987' }}>
 
                 {/* Desktop View  */}
                 <div className="flex items-center justify-between text-blue-gray-900">
@@ -86,11 +87,11 @@ export default function Nav() {
                             {/* Logo Image  */}
                             <img
                                 className=' w-10 h-10 '
-                                src='https://cdn-icons-png.flaticon.com/128/3685/3685253.png'
+                                src={imgLogo}
                             />
                             {/* Logo Text  */}
                             <span>
-                                Devknus
+                                Dreamscape Diaries
                             </span>
                         </Typography>
                     </Link>

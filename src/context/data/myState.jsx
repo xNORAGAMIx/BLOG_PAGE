@@ -14,7 +14,7 @@ function MyState(props) {
         }
         else {
             setMode('light');
-            document.body.style.backgroundColor = 'white';
+            document.body.style.backgroundColor = '#570987';
         }
     }
 

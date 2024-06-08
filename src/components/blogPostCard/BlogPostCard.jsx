@@ -11,7 +11,7 @@ function BlogPostCard() {
 
   return (
     <div>
-      <section className="text-gray-600 body-font">
+      <section id='sec' className="text-gray-600 body-font">
         <div className="container px-5 py-10 mx-auto max-w-7xl ">
 
           {/* Main Content  */}
@@ -71,7 +71,7 @@ function BlogPostCard() {
                               ? 'rgb(226, 232, 240)'
                               : ' rgb(30, 41, 59)'
                           }}>
-                            Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.
+                            Click to read more!
                           </p>
                         </div>
                       </div>

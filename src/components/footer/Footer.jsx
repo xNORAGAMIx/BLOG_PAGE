@@ -1,42 +1,45 @@
 import { useContext } from 'react'
 import myContext from '../../context/data/myContext';
+import imgLogo from '../../assets/logo.png';
 
 function Footer() {
     const context = useContext(myContext);
     const { mode } = context;
     return (
-        <footer className="body-font" style={{ background: mode === 'dark' ? 'rgb(30, 41, 59)' : '#30336b' }}>
+        <footer className="body-font" style={{ background: mode === 'dark' ? 'rgb(30, 41, 59)' : '#43137d' }}>
             {/* Left Content  */}
             <div className="container px-5 py-3 mx-auto flex items-center sm:flex-row flex-col">
                 {/* Blog Logo  */}
                 <div className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
                     {/* logo  */}
                     <img className='w-10'
-                        src="https://cdn-icons-png.flaticon.com/128/3685/3685253.png" alt="logo"
+                        src={imgLogo} alt="logo"
                     />
                     {/* logo text  */}
                     <span className="ml-3 text-xl text-white">
-                        Devknus
+                        Dreamscape Diaries
                     </span>
                 </div>
 
                 {/* items  */}
                 <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
-                    © 2023 Devknus —
+                    © 2024 Created By—
                     <a
-                        href="https://twitter.com/knyttneve"
+                        href="https://www.linkedin.com/in/manas-d-552168146/"
                         className="text-gray-600 ml-1"
                         rel="noopener noreferrer"
                         target="_blank"
                     >
-                        @devknus
+                        @noragami
                     </a>
                 </p>
                 
                 {/* Right item  */}
                 <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
                     {/* Icon 1  */}
-                    <a className="text-gray-500">
+                    <a 
+                        href='https://www.facebook.com/people/Eashan/pfbid02KPokr7uVTKyZVhqUHZSpTLkoHRMA1tG5eV2d1C6pMgZd8XpTP5RJcem75i1hVropl/?mibextid=ZbWKwL' className="text-gray-500" 
+                        target='_blank'>
                         <svg
                             fill="currentColor"
                             strokeLinecap="round"
@@ -50,7 +53,10 @@ function Footer() {
                     </a>
 
                     {/* Icon 2  */}
-                    <a className="ml-3 text-gray-500">
+                    <a 
+                        href='https://x.com/eashan_das?t=8YeQQ1KQJU3ZZKHWkvtZ3g&s=09'
+                        className="ml-3 text-gray-500"
+                        target='_blank'>
                         <svg
                             fill="currentColor"
                             strokeLinecap="round"
@@ -64,7 +70,10 @@ function Footer() {
                     </a>
 
                     {/* Icon 3  */}
-                    <a className="ml-3 text-gray-500">
+                    <a 
+                        href='https://www.instagram.com/a.y.a.s.h.i.m.o.n?igsh=MTU1b3lneDF1YmtyZw=='
+                        target='_blank'
+                        className="ml-3 text-gray-500">
                         <svg
                             fill="none"
                             stroke="currentColor"
@@ -80,7 +89,10 @@ function Footer() {
                     </a>
 
                     {/* Icon 4  */}
-                    <a className="ml-3 text-gray-500">
+                    <a 
+                        href='https://www.linkedin.com/in/manas-d-552168146/'
+                        className="ml-3 text-gray-500"
+                        target='_blank'>
                         <svg
                             fill="currentColor"
                             stroke="currentColor"

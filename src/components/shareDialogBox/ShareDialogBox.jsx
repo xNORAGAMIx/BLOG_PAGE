@@ -28,7 +28,8 @@ export default function ShareDialogBox() {
                             <div className="flex gap-3">
                                 {/* Linkedin Icon  */}
                                 <div className="">
-                                    <a href="">
+                                    <a href='https://www.linkedin.com/in/manas-d-552168146/'
+                        target='_blank'>
                                         <AiFillLinkedin size={35} style={{
                                             color: mode === 'dark'
                                                 ? 'white'
@@ -39,7 +40,8 @@ export default function ShareDialogBox() {
 
                                 {/* Instagram Icon  */}
                                 <div className="">
-                                    <a href="">
+                                    <a href='https://www.instagram.com/a.y.a.s.h.i.m.o.n?igsh=MTU1b3lneDF1YmtyZw=='
+                        target='_blank'>
                                         <AiFillInstagram size={35} style={{
                                             color: mode === 'dark'
                                                 ? 'white'
@@ -50,7 +52,8 @@ export default function ShareDialogBox() {
 
                                 {/* Github Icon  */}
                                 <div className="">
-                                    <a href="">
+                                    <a href='https://github.com/xNORAGAMIx'
+                        target='_blank'>
                                         <AiFillGithub size={35}
                                             style={{
                                                 color: mode === 'dark'
@@ -62,7 +65,8 @@ export default function ShareDialogBox() {
 
                                 {/* Facebook Icon  */}
                                 <div className="">
-                                    <a href="">
+                                    <a href='https://www.facebook.com/people/Eashan/pfbid02KPokr7uVTKyZVhqUHZSpTLkoHRMA1tG5eV2d1C6pMgZd8XpTP5RJcem75i1hVropl/?mibextid=ZbWKwL'  
+                        target='_blank'>
                                         <AiFillFacebook size={35}
                                             style={{
                                                 color: mode === 'dark'
@@ -76,9 +80,6 @@ export default function ShareDialogBox() {
                         </div>
                     </div>
 
-                    <div className=" text-center">
-                        <h1 className=" text-gray-600">Powered By Devknus</h1>
-                    </div>
                 </DialogBody>
             </Dialog>
         </Fragment>

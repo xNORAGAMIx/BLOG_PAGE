@@ -5,6 +5,13 @@ import { Button } from '@material-tailwind/react';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Dashboard() {
+
+    const admin = JSON.parse(localStorage.getItem('admin'));
+    console.log(admin); 
+    const timestamp = Number(admin?.user?.createdAt);
+    const date = new Date(timestamp);
+
+
     const context = useContext(myContext);
     const { mode, getAllBlog, deleteBlogs } = context;
 
@@ -15,6 +22,8 @@ function Dashboard() {
         localStorage.clear();
         navigate('/')
     }
+
+    
     return (
         <Layout>
             <div className="py-10">
@@ -31,19 +40,15 @@ function Dashboard() {
                             className='text-center font-bold text-2xl mb-2'
                             style={{ color: mode === 'dark' ? 'white' : 'black' }}
                         >
-                            Kamal Nayan Upadhyay
+                            {admin?.user?.uid}
                         </h1>
 
                         <h2
-                            style={{ color: mode === 'dark' ? 'white' : 'black' }} className="font-semibold">
-                            Software Developer
-                        </h2>
-                        <h2
-                            style={{ color: mode === 'dark' ? 'white' : 'black' }} className="font-semibold">knupadhyay784@gmail.com
+                            style={{ color: mode === 'dark' ? 'white' : 'black' }} className="font-semibold">{admin?.user?.email}
                         </h2>
                         <h2
                             style={{ color: mode === 'dark' ? 'white' : 'black' }} className="font-semibold">
-                            <span>Total Blog : </span>  15
+                            <span>Created At : </span>  {date.toLocaleDateString()}
                         </h2>
                         <div className=" flex gap-2 mt-2">
                             <Link to={'/createblog'}>
