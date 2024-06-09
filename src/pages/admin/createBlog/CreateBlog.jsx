@@ -12,11 +12,13 @@ import { fireDB, storage } from "../../../firebase/FirebaseConfig";
 function CreateBlog() {
   const context = useContext(myContext);
   const { mode } = context;
+  console.log(typeof JSON.parse(localStorage.getItem('admin')).user.uid);
 
   const navigate = useNavigate();
 
   // const [blogs, setBlogs] = useState('');
   const [blogs, setBlogs] = useState({
+    creatorId: JSON.parse(localStorage.getItem('admin')).user.uid,
     title: "",
     category: "",
     content: "",

@@ -3,10 +3,11 @@ import Layout from "../../../components/layout/Layout";
 import myContext from "../../../context/data/myContext";
 import { Button } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
+import ProfilePicture from "../../../components/profilePicture/ProfilePicture";
 
 function Dashboard() {
   const admin = JSON.parse(localStorage.getItem("admin"));
-  console.log(admin);
+  //console.log(admin.user.uid);
   const timestamp = Number(admin?.user?.createdAt);
   const date = new Date(timestamp);
 
@@ -21,16 +22,29 @@ function Dashboard() {
     navigate("/");
   };
 
+  console.log(getAllBlog);
+
+  let value = 0;
+
+  for (let index = 0; index < getAllBlog.length; index++) {
+    if (getAllBlog[index].blogs.creatorId === admin.user.uid) {
+      value++;
+    }
+  }
+
+  console.log(value);
+
   return (
     <Layout>
       <div className="py-10">
         <div className="flex flex-wrap justify-start items-center lg:justify-center gap-2 lg:gap-10 px-4 lg:px-0 mb-8">
           <div className="left">
-            <img
+            {/* <img
               className=" w-40 h-40  object-cover rounded-full border-2 border-gray-400 p-1"
               src={"https://cdn-icons-png.flaticon.com/128/3135/3135715.png"}
               alt="profile"
-            />
+            /> */}
+            <ProfilePicture />
           </div>
           <div className="right">
             <h1
@@ -50,6 +64,12 @@ function Dashboard() {
               style={{ color: mode === "dark" ? "white" : "black" }}
               className="font-semibold"
             >
+              <span>Total Blogs : </span> {value}
+            </h2>
+            <h2
+              style={{ color: mode === "dark" ? "white" : "black" }}
+              className="font-semibold"
+            >
               <span>Created At : </span> {date.toLocaleDateString()}
             </h2>
             <div className=" flex gap-2 mt-2">
@@ -57,10 +77,7 @@ function Dashboard() {
                 <div className=" mb-2">
                   <Button
                     style={{
-                      background:
-                        mode === "dark"
-                          ? "#25274d"
-                          : "#e43d12",
+                      background: mode === "dark" ? "#25274d" : "#e43d12",
                       color: mode === "dark" ? "white" : "white",
                     }}
                     className="px-8 py-2"
@@ -73,10 +90,7 @@ function Dashboard() {
                 <Button
                   onClick={logout}
                   style={{
-                    background:
-                      mode === "dark"
-                        ? "#25274d"
-                        : "#e43d12",
+                    background: mode === "dark" ? "#25274d" : "#e43d12",
                     color: mode === "dark" ? "white" : "white",
                   }}
                   className="px-8 py-2"
@@ -170,87 +184,90 @@ function Dashboard() {
                   <>
                     {getAllBlog.map((item, index) => {
                       const { thumbnail, date, id } = item;
-                      console.log(item);
-                      return (
-                        <tbody key={index}>
-                          <tr
-                            className=" border-b-2"
-                            style={{
-                              background:
-                                mode === "dark" ? "#2d283e" : "#ffe",
-                            }}
-                          >
-                            {/* S.No   */}
-                            <td
-                              style={{
-                                color: mode === "dark" ? "white" : "black",
-                              }}
-                              className="px-6 py-4"
-                            >
-                              {index + 1}.
-                            </td>
+                      //console.log(item.blogs.creatorId);
+                      //console.log(admin?.user?.uid);
 
-                            {/* Blog Thumbnail  */}
-                            <th
+                      if (admin.user.uid === item.blogs.creatorId)
+                        return (
+                          <tbody key={index}>
+                            <tr
+                              className=" border-b-2"
                               style={{
-                                color: mode === "dark" ? "white" : "black",
+                                background:
+                                  mode === "dark" ? "#2d283e" : "#ffe",
                               }}
-                              scope="row"
-                              className="px-6 py-4 font-medium "
                             >
-                              {/* thumbnail  */}
-                              <img
-                                className="w-16 rounded-lg"
-                                src={thumbnail}
-                                alt="thumbnail"
-                              />
-                            </th>
+                              {/* S.No   */}
+                              <td
+                                style={{
+                                  color: mode === "dark" ? "white" : "black",
+                                }}
+                                className="px-6 py-4"
+                              >
+                                {index + 1}.
+                              </td>
 
-                            {/* Blog Title  */}
-                            <td
-                              style={{
-                                color: mode === "dark" ? "white" : "black",
-                              }}
-                              className="px-6 py-4"
-                            >
-                              {item.blogs.title}
-                            </td>
+                              {/* Blog Thumbnail  */}
+                              <th
+                                style={{
+                                  color: mode === "dark" ? "white" : "black",
+                                }}
+                                scope="row"
+                                className="px-6 py-4 font-medium "
+                              >
+                                {/* thumbnail  */}
+                                <img
+                                  className="w-16 rounded-lg"
+                                  src={thumbnail}
+                                  alt="thumbnail"
+                                />
+                              </th>
 
-                            {/* Blog Category  */}
-                            <td
-                              style={{
-                                color: mode === "dark" ? "white" : "black",
-                              }}
-                              className="px-6 py-4"
-                            >
-                              {item.blogs.category}
-                            </td>
+                              {/* Blog Title  */}
+                              <td
+                                style={{
+                                  color: mode === "dark" ? "white" : "black",
+                                }}
+                                className="px-6 py-4"
+                              >
+                                {item.blogs.title}
+                              </td>
 
-                            {/* Blog Date  */}
-                            <td
-                              style={{
-                                color: mode === "dark" ? "white" : "black",
-                              }}
-                              className="px-6 py-4"
-                            >
-                              {date}
-                            </td>
+                              {/* Blog Category  */}
+                              <td
+                                style={{
+                                  color: mode === "dark" ? "white" : "black",
+                                }}
+                                className="px-6 py-4"
+                              >
+                                {item.blogs.category}
+                              </td>
 
-                            {/* Delete Blog  */}
-                            <td
-                              onClick={() => deleteBlogs(id)}
-                              style={{
-                                color: mode === "dark" ? "white" : "black",
-                              }}
-                              className="px-6 py-4"
-                            >
-                              <button className=" px-4 py-1 rounded-lg text-white font-bold bg-red-500">
-                                Delete
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      );
+                              {/* Blog Date  */}
+                              <td
+                                style={{
+                                  color: mode === "dark" ? "white" : "black",
+                                }}
+                                className="px-6 py-4"
+                              >
+                                {date}
+                              </td>
+
+                              {/* Delete Blog  */}
+                              <td
+                                onClick={() => deleteBlogs(id)}
+                                style={{
+                                  color: mode === "dark" ? "white" : "black",
+                                }}
+                                className="px-6 py-4"
+                              >
+                                <button className=" px-4 py-1 rounded-lg text-white font-bold bg-red-500">
+                                  Delete
+                                </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        );
                     })}
                   </>
                 ) : (

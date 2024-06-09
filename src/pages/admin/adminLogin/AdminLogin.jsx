@@ -6,8 +6,10 @@ import {
   Input,
   Button,
   Typography,
+  CardFooter,
+  Checkbox,
 } from "@material-tailwind/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import myContext from "../../../context/data/myContext";
@@ -41,78 +43,69 @@ export default function AdminLogin() {
   return (
     <Layout>
       <div className="flex justify-center items-center h-screen">
-        {/* Card  */}
         <Card
-          className="w-full max-w-[24rem]"
+          className="w-96"
           style={{
             background: mode === "dark" ? "rgb(226, 232, 240)" : "#ffe",
           }}
         >
-          {/* CardHeader */}
           <CardHeader
-            color="blue"
-            floated={false}
-            shadow={false}
-            className="m-0 grid place-items-center rounded-b-none py-8 px-4 text-center"
+            variant="gradient"
+            color="gray"
             style={{
               background: mode === "dark" ? "rgb(30, 41, 59) " : "#d6536d",
             }}
+            className="mb-4 grid h-28 place-items-center"
           >
-            <div className="mb-4 rounded-full border border-white/10 bg-white/10 p-2 text-white">
-              <div className=" flex justify-center">
-                {/* Image  */}
-                <img
-                  src="https://cdn-icons-png.flaticon.com/128/727/727399.png"
-                  className="h-20 w-20"
-                />
-              </div>
+            <Typography variant="h3" color="white">
+              Sign In
+            </Typography>
+          </CardHeader>
+          <CardBody className="flex flex-col gap-4">
+            <Input
+              type="email"
+              label="Email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              type="password"
+              label="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <div className="-ml-2.5">
+              <Checkbox label="Remember Me" />
             </div>
-
-            {/* Top Haeding  */}
-            <Typography
-              variant="h4"
+          </CardBody>
+          <CardFooter className="pt-0">
+            <Button
+              onClick={login}
+              variant="gradient"
+              fullWidth
               style={{
+                background: mode === "dark" ? "#25274d" : "#d6536d",
                 color: mode === "dark" ? "white" : "rgb(226, 232, 240)",
               }}
             >
-              Admin Login
-            </Typography>
-          </CardHeader>
-
-          {/* CardBody */}
-          <CardBody>
-            <form className=" flex flex-col gap-4">
-              {/* First Input  */}
-              <div>
-                <Input
-                  type="email"
-                  label="Email"
-                  name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              {/* Second Input  */}
-              <div>
-                <Input
-                  type="password"
-                  label="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              {/* Login Button  */}
-              <Button
-                onClick={login}
-                style={{
-                  background: mode === "dark" ? "#25274d" : "#d6536d",
-                  color: mode === "dark" ? "white" : "rgb(226, 232, 240)",
-                }}
+              Login
+            </Button>
+            <Typography variant="small" className="mt-6 flex justify-center">
+              Don&apos;t have an account?
+              <Typography
+                as="a"
+                href="#signup"
+                variant="small"
+                color="blue-gray"
+                className="ml-1 font-bold"
               >
-                Login
-              </Button>
-            </form>
-          </CardBody>
+                <Link to={"/register"} className="flex items-center">
+                  Sign Up
+                </Link>
+              </Typography>
+            </Typography>
+          </CardFooter>
         </Card>
       </div>
     </Layout>
