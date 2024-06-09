@@ -58,7 +58,7 @@ function BlogPostCard() {
                       <div
                         style={{
                           background:
-                            mode === "dark" ? "rgb(30, 41, 59)" : "white",
+                            mode === "dark" ? "#24305e" : "#ffe",
                           borderBottom:
                             mode === "dark"
                               ? " 4px solid rgb(226, 232, 240)"
@@ -136,9 +136,9 @@ function BlogPostCard() {
                 onClick={handleSeeMore}
                 style={{
                   background:
-                    mode === "dark" ? "rgb(226, 232, 240)" : "rgb(30, 41, 59)",
+                    mode === "dark" ? "#25274d" : "#e43d12",
                   color:
-                    mode === "dark" ? "rgb(30, 41, 59)" : "rgb(226, 232, 240)",
+                    mode === "dark" ? "white" : "rgb(226, 232, 240)",
                 }}
               >
                 See More

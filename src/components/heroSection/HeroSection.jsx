@@ -6,7 +6,7 @@ function HeroSection() {
   const context = useContext(myContext);
   const { mode } = context;
   return (
-    <section style={{ background: mode === "dark" ? "#042938" : "#782ea6" }}>
+    <section style={{ background: mode === "dark" ? "#464866" : "#d6536d" }}>
       {/* Hero Section  */}
       <div className="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
         {/* Main Content  */}

@@ -17,12 +17,16 @@ function MyState(props) {
   const toggleMode = () => {
     if (mode === "light") {
       setMode("dark");
-      document.body.style.backgroundColor = "rgb(17, 24, 39)";
+      document.body.style.backgroundColor = "#474b4f";
     } else {
       setMode("light");
-      document.body.style.backgroundColor = "#570987";
+      document.body.style.backgroundColor = "#ebe9e1";
     }
   };
+
+  useEffect(() => {
+    document.body.style.backgroundColor = "#ebe9e1";
+  }, [])
 
   //* search state
   const [searchkey, setSearchkey] = useState("");

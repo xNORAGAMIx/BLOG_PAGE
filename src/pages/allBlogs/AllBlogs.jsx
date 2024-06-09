@@ -59,7 +59,7 @@ function AllBlogs() {
                       <div
                         style={{
                           background:
-                            mode === "dark" ? "rgb(30, 41, 59)" : "white",
+                            mode === "dark" ? "#24305e" : "#ffe",
                           borderBottom:
                             mode === "dark"
                               ? " 4px solid rgb(226, 232, 240)"

@@ -70,7 +70,7 @@ export default function Nav() {
       {/* Navbar  */}
       <Navbar
         className="sticky inset-0 z-20 h-max max-w-full border-none rounded-none py-2 px-4 lg:px-8 lg:py-2"
-        style={{ background: mode === "dark" ? "rgb(30, 41, 59)" : "#3a0659" }}
+        style={{ background: mode === "dark" ? "#25274d" : "#e43d12" }}
       >
         {/* Desktop View  */}
         <div className="flex items-center justify-between text-blue-gray-900">

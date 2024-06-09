@@ -1,82 +1,86 @@
-import { useContext, useEffect, useState } from 'react'
-import myContext from '../../context/data/myContext';
-import { useParams } from 'react-router';
-import { Timestamp, addDoc, collection, doc, getDoc, onSnapshot, orderBy, query } from 'firebase/firestore';
-import { fireDB } from '../../firebase/FirebaseConfig';
-import Layout from '../../components/layout/Layout';
-import Loader from '../../components/loader/Loader';
-import Comment from '../../components/comment/Comment';
-import toast from 'react-hot-toast';
+import { useContext, useEffect, useState } from "react";
+import myContext from "../../context/data/myContext";
+import { useParams } from "react-router";
+import {
+  Timestamp,
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
+import { fireDB } from "../../firebase/FirebaseConfig";
+import Layout from "../../components/layout/Layout";
+import Loader from "../../components/loader/Loader";
+import Comment from "../../components/comment/Comment";
+import toast from "react-hot-toast";
 
 function BlogInfo() {
   const context = useContext(myContext);
   const { mode, setloading, loading } = context;
 
-  const params = useParams()
+  const params = useParams();
 
-  //* getBlogs State 
+  //* getBlogs State
   const [getBlogs, setGetBlogs] = useState();
 
   const getAllBlogs = async () => {
     setloading(true);
     try {
-      const productTemp = await getDoc(doc(fireDB, "blogPost", params.id))
+      const productTemp = await getDoc(doc(fireDB, "blogPost", params.id));
       if (productTemp.exists()) {
         setGetBlogs(productTemp.data());
       } else {
-        console.log("Document does not exist")
+        console.log("Document does not exist");
       }
-      setloading(false)
+      setloading(false);
     } catch (error) {
-      console.log(error)
-      setloading(false)
+      console.log(error);
+      setloading(false);
     }
-  }
+  };
 
   // console.log(getBlogs)
 
   useEffect(() => {
     getAllBlogs();
-    window.scrollTo(0, 0)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    window.scrollTo(0, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
-  //* Create markup function 
+  //* Create markup function
   function createMarkup(c) {
     return { __html: c };
   }
 
-
-  const [fullName, setFullName] = useState('');
-  const [commentText, setCommentText] = useState('');
+  const [fullName, setFullName] = useState("");
+  const [commentText, setCommentText] = useState("");
 
   const addComment = async () => {
-    const userRef = collection(fireDB, "blogPost/" + `${params.id}/` + "comment")
+    const userRef = collection(
+      fireDB,
+      "blogPost/" + `${params.id}/` + "comment"
+    );
     try {
-      await addDoc(
-        userRef, {
+      await addDoc(userRef, {
         fullName,
         commentText,
         time: Timestamp.now(),
-        date: new Date().toLocaleString(
-          "en-US",
-          {
-            month: "short",
-            day: "2-digit",
-            year: "numeric",
-          }
-        )
-      })
-      toast.success('Comment Add Successfully');
-      setFullName("")
-      setCommentText("")
+        date: new Date().toLocaleString("en-US", {
+          month: "short",
+          day: "2-digit",
+          year: "numeric",
+        }),
+      });
+      toast.success("Comment Add Successfully");
+      setFullName("");
+      setCommentText("");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-
-
+  };
 
   const [allComment, setAllComment] = useState([]);
 
@@ -84,94 +88,141 @@ function BlogInfo() {
     try {
       const q = query(
         collection(fireDB, "blogPost/" + `${params.id}/` + "comment/"),
-        orderBy('time')
+        orderBy("time")
       );
       const data = onSnapshot(q, (QuerySnapshot) => {
         let productsArray = [];
         QuerySnapshot.forEach((doc) => {
           productsArray.push({ ...doc.data(), id: doc.id });
         });
-        setAllComment(productsArray)
-        console.log(productsArray)
+        setAllComment(productsArray);
+        console.log(productsArray);
       });
       return () => data;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
-    getcomment()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    getcomment();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Layout>
       <section className="rounded-lg h-full overflow-hidden max-w-4xl mx-auto px-4 ">
         <div className=" py-4 lg:py-8">
-          {loading ?
+          {loading ? (
             <Loader />
-            :
+          ) : (
             <div>
               {/* Thumbnail  */}
-              <img alt="content" className="mb-3 rounded-lg h-full w-full"
+              <img
+                alt="content"
+                className="mb-3 rounded-lg h-full w-full"
                 src={getBlogs?.thumbnail}
               />
               {/* title And date  */}
               <div className="flex justify-between items-center mb-3">
-                <h1 style={{ color: mode === 'dark' ? 'white' : 'black' }}
-                  className=' text-xl md:text-2xl lg:text-2xl font-semibold'>
+                <h1
+                  style={{ color: mode === "dark" ? "white" : "#e43d12" }}
+                  className=" text-xl md:text-2xl lg:text-2xl font-semibold"
+                >
                   {getBlogs?.blogs?.title}
                 </h1>
-                <p style={{ color: mode === 'dark' ? 'white' : 'black' }}>
+                <p style={{ color: mode === "dark" ? "white" : "#e43d12" }}>
                   {getBlogs?.date}
                 </p>
               </div>
               <div
-                className={`border-b mb-5 ${mode === 'dark' ?
-                        'border-gray-600' : 'border-gray-400'}`}
+                className={`border-b mb-5 ${
+                  mode === "dark" ? "border-gray-600" : "border-gray-400"
+                }`}
               />
 
               {/* blog Content  */}
               <div className="content">
                 <div
-                className={`[&> h1]:text-[32px] [&>h1]:font-bold  [&>h1]:mb-2.5
-                        ${mode === 'dark' ? '[&>h1]:text-[#ff4d4d]' : '[&>h1]:text-black'}
+                  className={`[&> h1]:text-[32px] [&>h1]:font-bold  [&>h1]:mb-2.5
+                        ${
+                          mode === "dark"
+                            ? "[&>h1]:text-[#ff4d4d]"
+                            : "[&>h1]:text-black"
+                        }
 
                         [&>h2]:text-[24px] [&>h2]:font-bold [&>h2]:mb-2.5
-                        ${mode === 'dark' ? '[&>h2]:text-white' : '[&>h2]:text-black'}
+                        ${
+                          mode === "dark"
+                            ? "[&>h2]:text-white"
+                            : "[&>h2]:text-black"
+                        }
 
                         [&>h3]:text-[18.72] [&>h3]:font-bold [&>h3]:mb-2.5
-                        ${mode === 'dark' ? '[&>h3]:text-white' : '[&>h3]:text-black'}
+                        ${
+                          mode === "dark"
+                            ? "[&>h3]:text-white"
+                            : "[&>h3]:text-black"
+                        }
 
                         [&>h4]:text-[16px] [&>h4]:font-bold [&>h4]:mb-2.5
-                        ${mode === 'dark' ? '[&>h4]:text-white' : '[&>h4]:text-black'}
+                        ${
+                          mode === "dark"
+                            ? "[&>h4]:text-white"
+                            : "[&>h4]:text-black"
+                        }
 
                         [&>h5]:text-[13.28px] [&>h5]:font-bold [&>h5]:mb-2.5
-                        ${mode === 'dark' ? '[&>h5]:text-white' : '[&>h5]:text-black'}
+                        ${
+                          mode === "dark"
+                            ? "[&>h5]:text-white"
+                            : "[&>h5]:text-black"
+                        }
 
                         [&>h6]:text-[10px] [&>h6]:font-bold [&>h6]:mb-2.5
-                        ${mode === 'dark' ? '[&>h6]:text-white' : '[&>h6]:text-black'}
+                        ${
+                          mode === "dark"
+                            ? "[&>h6]:text-white"
+                            : "[&>h6]:text-black"
+                        }
 
                         [&>p]:text-[16px] [&>p]:mb-1.5
-                        ${mode === 'dark' ? '[&>p]:text-[#7efff5]' : '[&>p]:text-black'}
+                        ${
+                          mode === "dark"
+                            ? "[&>p]:text-[#7efff5]"
+                            : "[&>p]:text-black"
+                        }
 
                         [&>ul]:list-disc [&>ul]:mb-2
-                        ${mode === 'dark' ? '[&>ul]:text-white' : '[&>ul]:text-black'}
+                        ${
+                          mode === "dark"
+                            ? "[&>ul]:text-white"
+                            : "[&>ul]:text-black"
+                        }
 
                         [&>ol]:list-decimal [&>li]:mb-10
-                        ${mode === 'dark' ? '[&>ol]:text-white' : '[&>ol]:text-black'}
+                        ${
+                          mode === "dark"
+                            ? "[&>ol]:text-white"
+                            : "[&>ol]:text-black"
+                        }
 
                         [&>li]:list-decimal [&>ol]:mb-2
-                        ${mode === 'dark' ? '[&>ol]:text-white' : '[&>ol]:text-black'}
+                        ${
+                          mode === "dark"
+                            ? "[&>ol]:text-white"
+                            : "[&>ol]:text-black"
+                        }
 
                         [&>img]:rounded-lg
                         `}
-                  dangerouslySetInnerHTML={createMarkup(getBlogs?.blogs?.content)}>
-                </div>
+                  dangerouslySetInnerHTML={createMarkup(
+                    getBlogs?.blogs?.content
+                  )}
+                ></div>
               </div>
             </div>
-          }
+          )}
 
           <Comment
             addComment={addComment}
@@ -181,11 +232,10 @@ function BlogInfo() {
             fullName={fullName}
             setFullName={setFullName}
           />
-
         </div>
       </section>
     </Layout>
-  )
+  );
 }
 
-export default BlogInfo
+export default BlogInfo;
