@@ -1,4 +1,4 @@
-function Blog() {
+function Register() {
   return (
     <div>
       
@@ -6,4 +6,4 @@ function Blog() {
   )
 }
 
-export default Blog
+export default Register
